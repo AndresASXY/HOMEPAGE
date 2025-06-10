@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hobbies – MiMarca</title>
+  <style>
+    /* ===========================
+       Variables y reseteo global
+       =========================== */
+    :root {
+      --dark-bg: #0f1b2b;
+      --light-bg: #ffffff;
+      --dark-text: #111;
+      --light-text: #fff;
+      --accent: #f0c330;
+      --font: 'Helvetica Neue', Arial, sans-serif;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html, body { height:100%; }
+    body {
+      font-family: var(--font);
+      color: var(--light-text);
+      background: var(--dark-bg);
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+    a { text-decoration:none; color:inherit; }
+
+    /* ==============
+       HEADER
+       ============== */
+    header {
+      width: 100%; padding: 1rem 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+      position: fixed; top: 0;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+    }
+    .logo { font-size: 1.25rem; font-weight: bold; color: var(--dark-text); }
+    nav ul { list-style: none; display: flex; gap: 1.5rem; }
+    nav ul li a { color: var(--dark-text); padding: .25rem .5rem; }
+    nav ul li a:hover { color: var(--accent); }
+
+    /* =========
+       HERO
+       ========= */
+    .hero-hobbies {
+      margin-top: 4rem; padding: 9rem 4rem 10rem;
+      text-align: center; background: var(--light-bg); color: var(--dark-text);
+    }
+    .hero-hobbies h1 { font-size: 2.5rem; letter-spacing: .05em; }
+    .hero-hobbies p { margin-top: 1rem; color: #555; }
+
+    /* ====================
+       SECCIONES DE HOBBIES
+       ==================== */
+    .hobby-section {
+      position: relative; display: flex; align-items: center;
+      gap: 2rem; padding: 6rem 2rem;
+    }
+    .hobby-section:nth-child(even) {
+      background: var(--light-bg); color: var(--dark-text);
+      flex-direction: row-reverse;
+    }
+    .hobby-section.no-reverse { flex-direction: row !important; }
+    .hobby-number {
+      position: absolute; font-size: 8rem; font-weight: bold;
+      opacity: 0.07; top: 50%; transform: translateY(-50%);
+      left: 2rem; color: currentColor;
+    }
+    .hobby-section:nth-child(even) .hobby-number {
+      right: 2rem; left: auto;
+    }
+    .hobby-content {
+      flex: 1; max-width: 600px;
+    }
+    .hobby-content h2 {
+      font-size: 2rem; margin-bottom: 1rem; color: var(--accent);
+    }
+    .hobby-content p { font-size: 1rem; color: inherit; }
+
+    /* ————— Columnas de media para TODAS las secciones ————— */
+    .hobby-media {
+      flex: 1; display: flex;
+      justify-content: center; align-items: center;
+    }
+
+    /* =========================
+       03 · FOTOGRAFÍA (carrusel)
+       ========================= */
+    #media-wrapper {
+      position: relative;
+      width: 300px; height: 375px; /* ratio 4:5 vertical */
+      background: var(--dark-bg);
+      border-radius: 15px;
+      overflow: hidden;
+    }
+    #media-container {
+      width: 100%; height: 100%;
+      display: flex; justify-content: center; align-items: center;
+    }
+    #media-container img,
+    #media-container video {
+      width: 100%; height: 100%; object-fit: contain;
+      display: block;
+    }
+    .arrow-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(51, 50, 50, 0.5);
+      border: none; color: #fff; width: 32px; height: 32px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+    #prev-media { left: 16px; }
+    #next-media { right: 16px; }
+
+    /* =========================
+       04 · ESCRITURA (imagen)
+       ========================= */
+    /* hereda .hobby-media para centrar la imagen en desktop */
+    .hobby-section.no-reverse .hobby-media img.instagram {
+      max-width: 280px; width: 100%; height: auto;
+      object-fit: cover; border-radius: 16px;
+    }
+
+    /* =======
+       FOOTER
+       ======= */
+    footer {
+      text-align: center; padding: 4rem 2rem;
+      font-size: .9rem; background: var(--dark-bg); color: var(--light-text);
+    }
+    footer a { color: var(--accent); }
+
+    /* ====================
+       RESPONSIVE (móvil)
+       ==================== */
+    @media (max-width: 768px) {
+      .hobby-section {
+        flex-direction: column !important;
+        text-align: center;
+      }
+      /* — asegura que la sección no-reverse también pase a columna — */
+      .hobby-section.no-reverse {
+        flex-direction: column !important;
+        text-align: center;
+      }
+      .hobby-number {
+        position: static; transform: none;
+        font-size: 4rem; margin-bottom: 1rem;
+      }
+
+      /* — ordena texto primero y luego imagen EN LA SECCIÓN 04 — */
+      .hobby-section.no-reverse .hobby-content {
+        order: 1;
+        margin-bottom: 2rem;  /* espacio entre texto e imagen */
+      }
+      .hobby-section.no-reverse .hobby-media {
+        order: 2;
+        margin-bottom: 0;    /* ya no queremos espacio bajo la imagen */
+      }
+
+      .arrow-btn {
+        top: calc(50% - 15px);
+      }
+      #prev-media { left: 16px; }
+      #next-media { right: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">MiMarca</div>
+    <nav>
+      <ul>
+        <li><a href="index.html#portfolio">Portafolio</a></li>
+        <li><a href="index.html#contact">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="hobbies-hero" class="hero-hobbies">
+    <h1>Mis Hobbies</h1>
+    <p>Un vistazo rápido a las actividades y pasiones que cultivo fuera del trabajo.</p>
+  </section>
+
+  <!-- 01 · Inglés -->
+  <section class="hobby-section">
+    <span class="hobby-number">01</span>
+    <div class="hobby-content">
+      <h2>Inglés</h2>
+      <p>Determinación por la mejora: De manera constante y como una prioridad, me estoy formando en esta lengua de forma virtual, con ayuda de la inteligencia artificial y de manera autodidacta en mis tiempos libres fuera del trabajo. Mi objetivo con esto es la superación personal.</p>
+    </div>
+  </section>
+
+  <!-- 02 · Softwares -->
+  <section class="hobby-section">
+    <span class="hobby-number">02</span>
+    <div class="hobby-content">
+      <h2>Sofwares</h2>
+      <p>Apasionado por las herramientas digitales: Manejo Excel a nivel avanzado, Power BI y Tableau a nivel intermedio, SQL básico, Python en nivel inicial, así como el uso de algunos ERPs. Disfruto mejorar día a día en cada una de estas herramientas.</p>
+    </div>
+  </section>
+
+  <!-- 03 · Fotografía -->
+  <section class="hobby-section">
+    <span class="hobby-number">03</span>
+    <div class="hobby-content">
+      <h2>Fotografía</h2>
+      <p>Explorador visual: Tomar fotografías a pie en paisajes naturales me hace sentir libre y saludable. Afortunadamente, no fumo ni tomo, lo cual me permite realizar esta actividad de la mejor manera posible.</p>
+    </div>
+    <div class="hobby-media">
+      <div id="media-wrapper">
+        <button id="prev-media" class="arrow-btn">&#10094;</button>
+        <div id="media-container"></div>
+        <button id="next-media" class="arrow-btn">&#10095;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · Escritura -->
+  <section class="hobby-section no-reverse">
+    <span class="hobby-number">04</span>
+    <div class="hobby-media">
+      <img class="instagram" src="imagenes/148244.JPG" alt="Escritura Instagram" />
+    </div>
+    <div class="hobby-content">
+      <h2>Escritura</h2>
+      <p>Creatividad en palabras: Escribir ocasionalmente me ayuda a conectar ideas con claridad y estilo.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 MiMarca. <a href="index.html">Volver al inicio</a></p>
+  </footer>
+
+  <script>
+    // Carrusel Fotografía
+    const mediaList = [
+      { type: 'image', src: 'imagenes/IMG_5401.jpg' },
+      { type: 'video', src: 'imagenes/AQM.mp4' },
+      { type: 'image', src: 'imagenes/IMG_5086.jpg' }
+    ];
+    let mediaIndex = 0;
+    const container = document.getElementById('media-container');
+    function showMedia() {
+      container.innerHTML = '';
+      const item = mediaList[mediaIndex];
+      if (item.type === 'image') {
+        const img = document.createElement('img');
+        img.src = item.src; img.alt = 'Fotografía';
+        container.appendChild(img);
+      } else {
+        const video = document.createElement('video');
+        video.src = item.src; video.controls = true;
+        container.appendChild(video);
+      }
+    }
+    document.getElementById('next-media').addEventListener('click', () => {
+      mediaIndex = (mediaIndex + 1) % mediaList.length; showMedia();
+    });
+    document.getElementById('prev-media').addEventListener('click', () => {
+      mediaIndex = (mediaIndex - 1 + mediaList.length) % mediaList.length; showMedia();
+    });
+    showMedia();
+  </script>
+</body>
+</html>
